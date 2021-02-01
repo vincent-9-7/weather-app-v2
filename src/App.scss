@@ -1,0 +1,757 @@
+*{
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+// .container-fluid {
+//     // background-color: antiquewhite
+// }
+
+// .container {
+//     background-color: aqua;
+// }
+
+//ByteDance首页视频样式！！
+.mainPage__player-wrapper{
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: 100%; 
+    min-height: 100%; 
+    // overflow: hidden;
+    z-index: 10;
+}
+#mainPage__myVideo{
+    position: absolute;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    // z-index: 10;
+}
+
+//全屏背景图片样式
+.mainPage__background--image {
+    position:absolute;
+    width:100%; 
+    height:100%; 
+    background:rgb(247, 229, 208);
+    // background-image:url(../../img/backgound1.jpg);
+    // z-index: 999;
+    background-size:cover;
+    z-index: 10;
+}
+
+
+//首页文字+搜索框
+.mainPage {
+
+    &__display-none{
+        display: none;
+        z-index: -999;
+        position: absolute;
+    }
+
+    &__webName{
+        
+        position: absolute;
+        z-index: 10;
+        color: azure;
+        top:30%;
+        left:8.5%;
+    
+        & h1{
+            font-size: 43px;
+        }
+    }
+
+    &__webIcon{
+        position: absolute;
+        left: 105%;
+        top:26%;
+        height: 40px;
+        width: 40px;
+    }
+
+
+    &__search {
+        position: absolute;
+        z-index: 10;
+        left: 8.5%;
+        top:55%;
+        width: 460px;
+        padding: 12px 24px;
+        // background-color:antiquewhite;
+        transition: transform 250ms ease-in-out;
+        font-size: 21px;
+        line-height: 18px;
+    
+        color: #575756;
+        // background-color: transparent;
+        opacity: 0.4;
+        background-color: azure;
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-size: 18px 18px;
+        background-position: 95% center;
+        border-radius: 50px;
+        // border: 1px solid #575756;
+        border: 0px;;
+        transition: all 250ms ease-in-out;
+        backface-visibility: hidden;
+        transform-style: preserve-3d;
+    
+        &::placeholder {
+            color: color(#575756 a(0.8));
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+    
+        &:hover,&:focus {
+            background-image:none;
+            background-color: transparent;
+            padding: 12px 0;
+            outline: 0;
+            border: 1px solid transparent;
+            border-bottom: 1px solid #575756;
+            border-radius: 0;
+            background-position: 100% center;
+        }
+    }
+}
+
+
+
+
+//详情页
+.weatherPage {
+    
+    &__background{
+        position:absolute;
+        // top: 100%;
+        top:0;
+        left: 0;
+        width:100%; 
+        height:100%; 
+        background:rgb(247, 229, 208);
+        // background-image:url(./img/rainy.jpg);
+        background-image:url(./img/sunny.jpg);
+        // background-image:url(./img/cloudy.jpg);
+        background-size:cover;
+        // background-attachment:fixed; //背景固定的效果
+        // z-index: 500;
+    }
+
+    &__content {
+        z-index: 3;
+    }
+
+    &__search{
+        position: absolute;
+        top: 20%;
+        z-index: 3;
+        left:56%;
+        right: 0%;
+    }
+
+    &__search--input{
+        width: 100%;
+        padding: 12px 24px;
+        background-color: transparent;
+        transition: transform 250ms ease-in-out;
+        font-size: 21px;
+        line-height: 18px;
+
+        color: #575756;
+        background-color: transparent;
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-size: 18px 18px;
+        background-position: 95% center;
+        border-radius: 50px;
+        border: 1px solid #575756;
+        transition: all 250ms ease-in-out;
+        backface-visibility: hidden;
+        transform-style: preserve-3d;
+
+        &::placeholder {
+            color: color(#575756 a(0.8));
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        &:hover,&:focus {
+            padding: 12px 0;
+            outline: 0;
+            border: 1px solid transparent;
+            border-bottom: 1px solid #575756;
+            border-radius: 0;
+            background-position: 100% center;
+        }     
+    }
+
+//today   
+
+    &__today{
+        color: white;
+        z-index: 3;
+        padding: 5px;
+        // margin: 5px;
+        
+        &:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            // background-color: rgba(255,255,255,0.8);
+            z-index: -1;
+            // background-image: url(./img/rainy.jpg);
+            background-image:url(./img/sunny.jpg);
+            // background-image:url(./img/cloudy.jpg);
+            background-position: center top;
+            background-size: cover;
+            background-attachment: fixed;
+            filter: blur(18px);
+            -webkit-filter: blur(20px);
+        }
+    }
+    
+    &__today--tep {
+        top:65%;
+        // bottom: -20%;
+        left: 7%;
+        position: absolute;   
+    }
+
+    &__today--location{
+
+        position: absolute;
+        top:0%;
+        left: 140%; 
+    }
+
+    &__today--icon{
+        position: absolute;
+        top:0%;
+        left:200%;
+        width: 100px;
+    }
+
+    &__today--main {
+        position: absolute;
+        top:900%;
+        left:220%;
+        & span{
+            font-size: 30px;
+            color: white;
+        }
+    }
+
+
+    &__detail--day {
+
+        position: absolute;
+        top: 40%;
+        left: 56%;
+        right: 0%;
+        // bottom: 0%;
+        display: flex;
+        flex-wrap: wrap;
+        z-index: 3;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        line-height: 35px;
+        // height: 100%;
+
+        &:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            // background-image: url(./img/rainy.jpg);
+            background-image:url(./img/sunny.jpg);
+            // background-image:url(./img/cloudy.jpg);
+            background-position: center top;
+            background-size: cover;
+            background-attachment: fixed;
+            -webkit-filter: blur(20px);
+            -moz-filter: blur(20px);
+            -ms-filter: blur(20px);
+            -o-filter: blur(20px);
+            filter: blur(30px);
+            // margin: -80px 0px;
+        }
+
+    }
+
+    &__item {
+        text-align: center;
+        color: rgb(0, 0, 0);
+        // background-color: black;
+        margin: 10px;
+        padding: 5px;
+
+        // height: 80px;
+        // width: 250px;
+        // padding-top: 5px;
+        flex: 0 20%;
+        // flex-grow: 1;
+    }
+    &__item--day{
+        flex-grow: 1;
+    }
+    &__item--icon{
+        width: 70px;
+        // flex-grow: 1;
+        width: 40px;
+        height: 40px;
+    }
+    &__item--tep{
+        width: 70px
+    }
+}
+
+
+#today--tep{
+    
+    font-size: 100px;
+    color: white;
+    margin: 5px;
+    line-height: 140px;
+    
+}
+
+#weatherPage__today--detail{
+    font-size: 60px;
+    color: white;
+    // margin: 5px;
+}
+
+
+#weatherPage__today--time{
+    font-size: 30px;
+    color: white;
+    position: absolute;
+    left: 0%;
+    top: 100%;
+    width: 300px;
+    // background-color: black;
+}
+
+
+.weatherPage__item span {
+    // margin: 10px;
+    font-size: 25px;
+    line-height: 35px;
+}
+
+.degree {
+    width: 60px;
+    height: 60px;
+    margin: 0px;
+    padding: 0px;
+    position: absolute;
+    left: 75%;
+    top:8%
+}
+
+
+// .menuBar{
+//     position: absolute;
+//     right: 20%;
+//     // width: 80px;
+//     height: 80px;
+//     background-color: aliceblue;
+//     z-index: 999;
+// }
+
+
+
+
+
+@media only screen and (max-width: 1400px) {
+    /*尺寸小于1400，大于768时*/
+    /* For desktop: */
+  .col-l-1 {width: 8.33%;}
+  .col-l-2 {width: 16.66%;}
+  .col-l-3 {width: 25%;}
+  .col-l-4 {width: 33.33%;}
+  .col-l-5 {width: 41.66%;}
+  .col-l-6 {width: 50%;}
+  .col-l-7 {width: 58.33%;}
+  .col-l-8 {width: 66.66%;}
+  .col-l-9 {width: 75%;}
+  .col-l-10 {width: 83.33%;}
+  .col-l-11 {width: 91.66%;}
+  .col-l-12 {width: 100%;}
+  span {
+        color: white;
+    }
+    .weatherPage {
+
+        &__today{
+            color: white;
+            z-index: 3;
+            padding: 5px;
+            // margin: 5px;
+            
+            &:after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                // background-color: rgba(255,255,255,0.8);
+                z-index: -1;
+                // background-image: url(./img/rainy.jpg);
+                background-image:url(./img/sunny.jpg);
+                // background-image:url(./img/cloudy.jpg);
+                background-position: center top;
+                background-size: cover;
+                background-attachment: fixed;
+                filter: blur(18px);
+                -webkit-filter: blur(20px);
+            }
+        }
+        
+        &__today--tep {
+            top:12%;
+            // bottom: -20%;
+            left: 25%;
+            position: absolute;
+    
+            
+        }
+    
+        &__today--location{
+    
+            position: absolute;
+            top:0%;
+            left: 120%; 
+        }
+    
+        &__today--icon{
+            position: absolute;
+            left:188%;
+            width: 100px;
+        }
+    
+        &__today--main {
+            position: absolute;
+            left:188%;
+            & span{
+                font-size: 30px;
+                color: white;
+            }
+        }
+
+
+        &__search{
+            position: absolute;
+            top: 40%;
+            z-index: 3;
+            left:0%;
+            right: 0%;
+        }
+    
+        &__search--input{
+            width: 100%;
+            padding: 12px 24px;
+            background-color: transparent;
+            transition: transform 250ms ease-in-out;
+            font-size: 21px;
+            line-height: 18px;
+    
+            color: #575756;
+            background-color: transparent;
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-size: 18px 18px;
+            background-position: 95% center;
+            border-radius: 50px;
+            border: 1px solid #575756;
+            transition: all 250ms ease-in-out;
+            backface-visibility: hidden;
+            transform-style: preserve-3d;
+    
+            &::placeholder {
+                color: color(#575756 a(0.8));
+                text-transform: uppercase;
+                letter-spacing: 1.5px;
+            }
+    
+            &:hover,&:focus {
+                padding: 12px 0;
+                outline: 0;
+                border: 1px solid transparent;
+                border-bottom: 1px solid #575756;
+                border-radius: 0;
+                background-position: 100% center;
+            }     
+        }
+
+        &__detail--day {
+
+            position: absolute;
+            top: 50%;
+            left: 0%;
+            right: 0%;
+            // bottom: 0%;
+            display: flex;
+            flex-wrap: wrap;
+            z-index: 3;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            line-height: 35px;
+            // height: 100%;
+    
+            &:after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: -1;
+                // background-image: url(./img/rainy.jpg);
+                background-image:url(./img/sunny.jpg);
+                // background-image:url(./img/cloudy.jpg);
+                background-position: center top;
+                background-size: cover;
+                background-attachment: fixed;
+                -webkit-filter: blur(20px);
+                -moz-filter: blur(20px);
+                -ms-filter: blur(20px);
+                -o-filter: blur(20px);
+                filter: blur(30px);
+                // margin: -80px 0px;
+            }
+    
+        }
+    
+        &__item {
+            text-align: center;
+            color: rgb(0, 0, 0);
+            // background-color: black;
+            margin: 10px;
+            padding: 5px;
+    
+            // height: 80px;
+            // width: 250px;
+            // padding-top: 5px;
+            flex: 0 20%;
+            // flex-grow: 1;
+        }
+        &__item--day{
+            flex-grow: 1;
+        }
+        &__item--icon{
+            width: 70px;
+            // flex-grow: 1;
+            width: 40px;
+            height: 40px;
+        }
+        &__item--tep{
+            width: 70px
+        }
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    /*尺寸小于768时*/
+    /* For phone: */
+  .col-s-1 {width: 8.33%;}
+  .col-s-2 {width: 16.66%;}
+  .col-s-3 {width: 25%;}
+  .col-s-4 {width: 33.33%;}
+  .col-s-5 {width: 41.66%;}
+  .col-s-6 {width: 50%;}
+  .col-s-7 {width: 58.33%;}
+  .col-s-8 {width: 66.66%;}
+  .col-s-9 {width: 75%;}
+  .col-s-10 {width: 83.33%;}
+  .col-s-11 {width: 91.66%;}
+  .col-s-12 {width: 100%;}
+  span {
+        color: white;
+        
+    }
+
+    .weatherPage {
+
+        &__today{
+            color: white;
+            z-index: 3;
+            padding: 5px;
+            // margin: 5px;
+            
+            &:after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                // background-color: rgba(255,255,255,0.8);
+                z-index: -1;
+                // background-image: url(./img/rainy.jpg);
+                background-image:url(./img/sunny.jpg);
+                // background-image:url(./img/cloudy.jpg);
+                background-position: center top;
+                background-size: cover;
+                background-attachment: fixed;
+                filter: blur(18px);
+                -webkit-filter: blur(20px);
+            }
+        }
+        
+        &__today--tep {
+            top:12%;
+            // bottom: -20%;
+            left: 5%;
+            position: absolute;
+    
+            
+        }
+    
+        &__today--location{
+    
+            position: absolute;
+            top:0%;
+            left: 120%; 
+        }
+    
+        &__today--icon{
+            position: absolute;
+            left:188%;
+            width: 100px;
+        }
+    
+        &__today--main {
+            position: absolute;
+            left:188%;
+            & span{
+                font-size: 30px;
+                color: white;
+            }
+        }
+
+
+        &__search{
+            position: absolute;
+            top: 40%;
+            z-index: 3;
+            left:0%;
+            right: 0%;
+        }
+    
+        &__search--input{
+            width: 100%;
+            padding: 12px 24px;
+            background-color: transparent;
+            transition: transform 250ms ease-in-out;
+            font-size: 21px;
+            line-height: 18px;
+    
+            color: #575756;
+            background-color: transparent;
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-size: 18px 18px;
+            background-position: 95% center;
+            border-radius: 50px;
+            border: 1px solid #575756;
+            transition: all 250ms ease-in-out;
+            backface-visibility: hidden;
+            transform-style: preserve-3d;
+    
+            &::placeholder {
+                color: color(#575756 a(0.8));
+                text-transform: uppercase;
+                letter-spacing: 1.5px;
+            }
+    
+            &:hover,&:focus {
+                padding: 12px 0;
+                outline: 0;
+                border: 1px solid transparent;
+                border-bottom: 1px solid #575756;
+                border-radius: 0;
+                background-position: 100% center;
+            }     
+        }
+
+        &__detail--day {
+
+            position: absolute;
+            top: 50%;
+            left: 0%;
+            right: 0%;
+            // bottom: 0%;
+            display: flex;
+            flex-wrap: wrap;
+            z-index: 3;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            line-height: 35px;
+            // height: 100%;
+    
+            &:after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: -1;
+                // background-image: url(./img/rainy.jpg);
+                background-image:url(./img/sunny.jpg);
+                // background-image:url(./img/cloudy.jpg);
+                background-position: center top;
+                background-size: cover;
+                background-attachment: fixed;
+                -webkit-filter: blur(20px);
+                -moz-filter: blur(20px);
+                -ms-filter: blur(20px);
+                -o-filter: blur(20px);
+                filter: blur(30px);
+                // margin: -80px 0px;
+            }
+    
+        }
+    
+        &__item {
+            text-align: center;
+            color: rgb(0, 0, 0);
+            // background-color: black;
+            margin: 10px;
+            padding: 5px;
+    
+            // height: 80px;
+            // width: 250px;
+            // padding-top: 5px;
+            flex: 0 20%;
+            // flex-grow: 1;
+        }
+        &__item--day{
+            flex-grow: 1;
+        }
+        &__item--icon{
+            width: 70px;
+            // flex-grow: 1;
+            width: 40px;
+            height: 40px;
+        }
+        &__item--tep{
+            width: 70px
+        }
+    }
+}

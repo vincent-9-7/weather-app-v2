@@ -1,0 +1,648 @@
+@charset "UTF-8";
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.mainPage__player-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: 10;
+}
+
+#mainPage__myVideo {
+  position: absolute;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.mainPage__background--image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #f7e5d0;
+  background-size: cover;
+  z-index: 10;
+}
+
+.mainPage__display-none {
+  display: none;
+  z-index: -999;
+  position: absolute;
+}
+
+.mainPage__webName {
+  position: absolute;
+  z-index: 10;
+  color: azure;
+  top: 30%;
+  left: 8.5%;
+}
+
+.mainPage__webName h1 {
+  font-size: 43px;
+}
+
+.mainPage__webIcon {
+  position: absolute;
+  left: 105%;
+  top: 26%;
+  height: 40px;
+  width: 40px;
+}
+
+.mainPage__search {
+  position: absolute;
+  z-index: 10;
+  left: 8.5%;
+  top: 55%;
+  width: 460px;
+  padding: 12px 24px;
+  transition: transform 250ms ease-in-out;
+  font-size: 21px;
+  line-height: 18px;
+  color: #575756;
+  opacity: 0.4;
+  background-color: azure;
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 18px 18px;
+  background-position: 95% center;
+  border-radius: 50px;
+  border: 0px;
+  transition: all 250ms ease-in-out;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+.mainPage__search::placeholder {
+  color: color(#575756 a(0.8));
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.mainPage__search:hover, .mainPage__search:focus {
+  background-image: none;
+  background-color: transparent;
+  padding: 12px 0;
+  outline: 0;
+  border: 1px solid transparent;
+  border-bottom: 1px solid #575756;
+  border-radius: 0;
+  background-position: 100% center;
+}
+
+.weatherPage__background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #f7e5d0;
+  background-image: url(./img/sunny.jpg);
+  background-size: cover;
+}
+
+.weatherPage__content {
+  z-index: 3;
+}
+
+.weatherPage__search {
+  position: absolute;
+  top: 20%;
+  z-index: 3;
+  left: 56%;
+  right: 0%;
+}
+
+.weatherPage__search--input {
+  width: 100%;
+  padding: 12px 24px;
+  background-color: transparent;
+  transition: transform 250ms ease-in-out;
+  font-size: 21px;
+  line-height: 18px;
+  color: #575756;
+  background-color: transparent;
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 18px 18px;
+  background-position: 95% center;
+  border-radius: 50px;
+  border: 1px solid #575756;
+  transition: all 250ms ease-in-out;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+.weatherPage__search--input::placeholder {
+  color: color(#575756 a(0.8));
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.weatherPage__search--input:hover, .weatherPage__search--input:focus {
+  padding: 12px 0;
+  outline: 0;
+  border: 1px solid transparent;
+  border-bottom: 1px solid #575756;
+  border-radius: 0;
+  background-position: 100% center;
+}
+
+.weatherPage__today {
+  color: white;
+  z-index: 3;
+  padding: 5px;
+}
+
+.weatherPage__today:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  background-image: url(./img/sunny.jpg);
+  background-position: center top;
+  background-size: cover;
+  background-attachment: fixed;
+  filter: blur(18px);
+  -webkit-filter: blur(20px);
+}
+
+.weatherPage__today--tep {
+  top: 65%;
+  left: 7%;
+  position: absolute;
+}
+
+.weatherPage__today--location {
+  position: absolute;
+  top: 0%;
+  left: 140%;
+}
+
+.weatherPage__today--icon {
+  position: absolute;
+  top: 0%;
+  left: 200%;
+  width: 100px;
+}
+
+.weatherPage__today--main {
+  position: absolute;
+  top: 900%;
+  left: 220%;
+}
+
+.weatherPage__today--main span {
+  font-size: 30px;
+  color: white;
+}
+
+.weatherPage__detail--day {
+  position: absolute;
+  top: 40%;
+  left: 56%;
+  right: 0%;
+  display: flex;
+  flex-wrap: wrap;
+  z-index: 3;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  line-height: 35px;
+}
+
+.weatherPage__detail--day:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  background-image: url(./img/sunny.jpg);
+  background-position: center top;
+  background-size: cover;
+  background-attachment: fixed;
+  -webkit-filter: blur(20px);
+  -moz-filter: blur(20px);
+  -ms-filter: blur(20px);
+  -o-filter: blur(20px);
+  filter: blur(30px);
+}
+
+.weatherPage__item {
+  text-align: center;
+  color: black;
+  margin: 10px;
+  padding: 5px;
+  flex: 0 20%;
+}
+
+.weatherPage__item--day {
+  flex-grow: 1;
+}
+
+.weatherPage__item--icon {
+  width: 70px;
+  width: 40px;
+  height: 40px;
+}
+
+.weatherPage__item--tep {
+  width: 70px;
+}
+
+#today--tep {
+  font-size: 100px;
+  color: white;
+  margin: 5px;
+  line-height: 140px;
+}
+
+#weatherPage__today--detail {
+  font-size: 60px;
+  color: white;
+}
+
+#weatherPage__today--time {
+  font-size: 30px;
+  color: white;
+  position: absolute;
+  left: 0%;
+  top: 100%;
+  width: 300px;
+}
+
+.weatherPage__item span {
+  font-size: 25px;
+  line-height: 35px;
+}
+
+.degree {
+  width: 60px;
+  height: 60px;
+  margin: 0px;
+  padding: 0px;
+  position: absolute;
+  left: 75%;
+  top: 8%;
+}
+
+@media only screen and (max-width: 1400px) {
+  /*尺寸小于1400，大于768时*/
+  /* For desktop: */
+  .col-l-1 {
+    width: 8.33%;
+  }
+  .col-l-2 {
+    width: 16.66%;
+  }
+  .col-l-3 {
+    width: 25%;
+  }
+  .col-l-4 {
+    width: 33.33%;
+  }
+  .col-l-5 {
+    width: 41.66%;
+  }
+  .col-l-6 {
+    width: 50%;
+  }
+  .col-l-7 {
+    width: 58.33%;
+  }
+  .col-l-8 {
+    width: 66.66%;
+  }
+  .col-l-9 {
+    width: 75%;
+  }
+  .col-l-10 {
+    width: 83.33%;
+  }
+  .col-l-11 {
+    width: 91.66%;
+  }
+  .col-l-12 {
+    width: 100%;
+  }
+  span {
+    color: white;
+  }
+  .weatherPage__today {
+    color: white;
+    z-index: 3;
+    padding: 5px;
+  }
+  .weatherPage__today:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    background-image: url(./img/sunny.jpg);
+    background-position: center top;
+    background-size: cover;
+    background-attachment: fixed;
+    filter: blur(18px);
+    -webkit-filter: blur(20px);
+  }
+  .weatherPage__today--tep {
+    top: 12%;
+    left: 25%;
+    position: absolute;
+  }
+  .weatherPage__today--location {
+    position: absolute;
+    top: 0%;
+    left: 120%;
+  }
+  .weatherPage__today--icon {
+    position: absolute;
+    left: 188%;
+    width: 100px;
+  }
+  .weatherPage__today--main {
+    position: absolute;
+    left: 188%;
+  }
+  .weatherPage__today--main span {
+    font-size: 30px;
+    color: white;
+  }
+  .weatherPage__search {
+    position: absolute;
+    top: 40%;
+    z-index: 3;
+    left: 0%;
+    right: 0%;
+  }
+  .weatherPage__search--input {
+    width: 100%;
+    padding: 12px 24px;
+    background-color: transparent;
+    transition: transform 250ms ease-in-out;
+    font-size: 21px;
+    line-height: 18px;
+    color: #575756;
+    background-color: transparent;
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+    background-position: 95% center;
+    border-radius: 50px;
+    border: 1px solid #575756;
+    transition: all 250ms ease-in-out;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+  }
+  .weatherPage__search--input::placeholder {
+    color: color(#575756 a(0.8));
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+  .weatherPage__search--input:hover, .weatherPage__search--input:focus {
+    padding: 12px 0;
+    outline: 0;
+    border: 1px solid transparent;
+    border-bottom: 1px solid #575756;
+    border-radius: 0;
+    background-position: 100% center;
+  }
+  .weatherPage__detail--day {
+    position: absolute;
+    top: 50%;
+    left: 0%;
+    right: 0%;
+    display: flex;
+    flex-wrap: wrap;
+    z-index: 3;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    line-height: 35px;
+  }
+  .weatherPage__detail--day:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    background-image: url(./img/sunny.jpg);
+    background-position: center top;
+    background-size: cover;
+    background-attachment: fixed;
+    -webkit-filter: blur(20px);
+    -moz-filter: blur(20px);
+    -ms-filter: blur(20px);
+    -o-filter: blur(20px);
+    filter: blur(30px);
+  }
+  .weatherPage__item {
+    text-align: center;
+    color: black;
+    margin: 10px;
+    padding: 5px;
+    flex: 0 20%;
+  }
+  .weatherPage__item--day {
+    flex-grow: 1;
+  }
+  .weatherPage__item--icon {
+    width: 70px;
+    width: 40px;
+    height: 40px;
+  }
+  .weatherPage__item--tep {
+    width: 70px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  /*尺寸小于768时*/
+  /* For phone: */
+  .col-s-1 {
+    width: 8.33%;
+  }
+  .col-s-2 {
+    width: 16.66%;
+  }
+  .col-s-3 {
+    width: 25%;
+  }
+  .col-s-4 {
+    width: 33.33%;
+  }
+  .col-s-5 {
+    width: 41.66%;
+  }
+  .col-s-6 {
+    width: 50%;
+  }
+  .col-s-7 {
+    width: 58.33%;
+  }
+  .col-s-8 {
+    width: 66.66%;
+  }
+  .col-s-9 {
+    width: 75%;
+  }
+  .col-s-10 {
+    width: 83.33%;
+  }
+  .col-s-11 {
+    width: 91.66%;
+  }
+  .col-s-12 {
+    width: 100%;
+  }
+  span {
+    color: white;
+  }
+  .weatherPage__today {
+    color: white;
+    z-index: 3;
+    padding: 5px;
+  }
+  .weatherPage__today:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    background-image: url(./img/sunny.jpg);
+    background-position: center top;
+    background-size: cover;
+    background-attachment: fixed;
+    filter: blur(18px);
+    -webkit-filter: blur(20px);
+  }
+  .weatherPage__today--tep {
+    top: 12%;
+    left: 5%;
+    position: absolute;
+  }
+  .weatherPage__today--location {
+    position: absolute;
+    top: 0%;
+    left: 120%;
+  }
+  .weatherPage__today--icon {
+    position: absolute;
+    left: 188%;
+    width: 100px;
+  }
+  .weatherPage__today--main {
+    position: absolute;
+    left: 188%;
+  }
+  .weatherPage__today--main span {
+    font-size: 30px;
+    color: white;
+  }
+  .weatherPage__search {
+    position: absolute;
+    top: 40%;
+    z-index: 3;
+    left: 0%;
+    right: 0%;
+  }
+  .weatherPage__search--input {
+    width: 100%;
+    padding: 12px 24px;
+    background-color: transparent;
+    transition: transform 250ms ease-in-out;
+    font-size: 21px;
+    line-height: 18px;
+    color: #575756;
+    background-color: transparent;
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+    background-position: 95% center;
+    border-radius: 50px;
+    border: 1px solid #575756;
+    transition: all 250ms ease-in-out;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+  }
+  .weatherPage__search--input::placeholder {
+    color: color(#575756 a(0.8));
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+  .weatherPage__search--input:hover, .weatherPage__search--input:focus {
+    padding: 12px 0;
+    outline: 0;
+    border: 1px solid transparent;
+    border-bottom: 1px solid #575756;
+    border-radius: 0;
+    background-position: 100% center;
+  }
+  .weatherPage__detail--day {
+    position: absolute;
+    top: 50%;
+    left: 0%;
+    right: 0%;
+    display: flex;
+    flex-wrap: wrap;
+    z-index: 3;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    line-height: 35px;
+  }
+  .weatherPage__detail--day:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    background-image: url(./img/sunny.jpg);
+    background-position: center top;
+    background-size: cover;
+    background-attachment: fixed;
+    -webkit-filter: blur(20px);
+    -moz-filter: blur(20px);
+    -ms-filter: blur(20px);
+    -o-filter: blur(20px);
+    filter: blur(30px);
+  }
+  .weatherPage__item {
+    text-align: center;
+    color: black;
+    margin: 10px;
+    padding: 5px;
+    flex: 0 20%;
+  }
+  .weatherPage__item--day {
+    flex-grow: 1;
+  }
+  .weatherPage__item--icon {
+    width: 70px;
+    width: 40px;
+    height: 40px;
+  }
+  .weatherPage__item--tep {
+    width: 70px;
+  }
+}

@@ -1,0 +1,132 @@
+body{
+    background-color: antiquewhite;
+}
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+.NavbarItems{
+    background-color:aliceblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+}
+
+.navbar-logo {
+    justify-self: start;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.fa-rainbow{
+    margin-left: 0.5em;
+    font-size: 1.6rem;
+}
+
+.nav-menu {
+    margin-right: 2em;
+    display: grid;
+    grid-template-columns: repeat(5,auto);  //指定网格布局中的列数（和宽度）
+    grid-gap: 10px; //item间距
+    list-style: none; //去除list前面小点的style
+    text-align: center;
+    width: 800px;
+    justify-content: end; //排布在那一列的末尾
+}
+
+.nav-links{
+    color: rgb(243, 137, 137);
+    text-decoration: none; //去除list文字下面的下划线
+    padding: 5px 10px;
+}
+.nav-links:hover{
+    background-color: aquamarine;
+    border-radius: 4px;
+    transition: all 0.2s ease-out; //0.2s的动画
+}
+
+.fa-bars{
+    color:rgb(243, 137, 137);
+}
+
+.nav-links-mobile{
+    display: none;
+}
+
+.menu-icon{
+    display: none;
+}
+
+@media screen and (max-width:960px) {
+    .NavbarItems{
+        position: relative;
+    }
+    .nav-menu{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 500px;
+        position: absolute;
+        top:80px;
+        left:-100%; //从左侧飘出来
+        transition: all 0.5s ease;
+    }
+    .nav-menu.active {
+        background-color: aliceblue;
+        left: 0;
+        transition: all 0.5s ease;
+        z-index: 1;
+    }
+    .nav-links {
+        text-align:center;
+        padding: 2em;
+        width: 100%;
+        display: table;
+    }
+    .nav-links:hover{
+        background-color: firebrick;
+        border-radius: 0;
+    }
+    .navbar-logo {
+        position: absolute;
+        top:0;
+        left: 0;
+        transform: translate(25%,50%);
+    }
+    .menu-icon{
+        display: block;
+        position: absolute;
+        top:0;
+        right: 0;
+        transform: translate(-100%,60%);
+        font-size: 1.8rem;
+        cursor: pointer;
+    }
+    .fa-times {
+        color: #fff;
+        font-size: 2rem;
+    }
+    .nav-links-mobile{
+        display: block;
+        text-align: center;
+        padding: 1.5rem;
+        margin:2rem auto;
+        border-radius: 4px;
+        width: 80%;
+        background-color: indigo;
+        text-decoration: none;
+        font-size: 1.5rem;
+        color: white;
+    }
+    .nav-links-moble:hover{
+        background-color: white;
+        transition: 250ms;
+    }
+
+    Button {
+        display: none;
+    }
+}

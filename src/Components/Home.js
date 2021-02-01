@@ -4,7 +4,7 @@ import DetailToday from './DetailToday'
 import HomePageBackground from './HomeBackground';
 /* eslint-disable camelcase */
 /* eslint-disable class-methods-use-this */
-// eslint-disable-next-line
+/* eslint-disable-next-line */
 import Detail7Days from './Detail7Days'
 
 

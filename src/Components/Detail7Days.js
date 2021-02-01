@@ -1,6 +1,6 @@
 import React from 'react';
 import { WiDegrees } from "react-icons/wi";
-// eslint-disable-next-line
+/* eslint-disable-next-line */
 
 
 

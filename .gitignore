@@ -2,6 +2,9 @@
 
 .env
 .netlify/
+src/NavBar-Example
+src/Components/SignUp.js
+src/Components/SignUp.css
 
 # dependencies
 /node_modules

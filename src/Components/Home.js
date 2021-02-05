@@ -279,58 +279,56 @@ class Home extends React.Component {
 
         return(
           <>
-            <div>
-              <div className="mainPage">
-                <div className={this.changePage()}>
+            <div className="mainPage">
+              <div className={this.changePage()}>
 
-                  <HomePageBackground />
+                <HomePageBackground />
 
-                  <div className="mainPage__webName">
-                    <h1>
-                      Find Your Weather.
-                    </h1>   
-                    <IoRainyOutline className="mainPage__webIcon" />
-                  </div>
-
-                  <div className="mainPage__SearchBar">
-                    <div id='form'>
-                      <form onSubmit={this.handleSubmit}>
-                        <input
-                          onChange={this.handleOnChangeCity}
-                          className="mainPage__search"
-                          type="text"
-                          name="search"
-                          placeholder="enter your city"
-                        />
-                      </form>
-                    </div>
-                  </div>
+                <div className="mainPage__webName">
+                  <h1>
+                    Find Your Weather.
+                  </h1>   
+                  <IoRainyOutline className="mainPage__webIcon" />
                 </div>
-              </div>
-              
-              <div className='weatherPage'>
-                <div className="weatherPage__background" />
 
-                <div className="weatherPage__content">
-                  <div className="weatherPage__search">
+                <div className="mainPage__SearchBar">
+                  <div id='form'>
                     <form onSubmit={this.handleSubmit}>
-                      <input 
+                      <input
                         onChange={this.handleOnChangeCity}
-                        className="weatherPage__search--input" 
-                        type="text" 
-                        placeholder="Search"
+                        className="mainPage__search"
+                        type="text"
+                        name="search"
+                        placeholder="enter your city"
                       />
                     </form>
-                  </div>          
+                  </div>
                 </div>
-            
-                <DetailToday 
-                  todayDetail={currentCity}
-                  todayTime={date}
-                />
-            
-                <Detail7Days city={currentCity} />
               </div>
+            </div>
+              
+            <div className='weatherPage'>
+              <div className="weatherPage__background" />
+
+              <div className="weatherPage__content">
+                <div className="weatherPage__search">
+                  <form onSubmit={this.handleSubmit}>
+                    <input 
+                      onChange={this.handleOnChangeCity}
+                      className="weatherPage__search--input" 
+                      type="text" 
+                      placeholder="Search"
+                    />
+                  </form>
+                </div>          
+              </div>
+            
+              <DetailToday 
+                todayDetail={currentCity}
+                todayTime={date}
+              />
+            
+              <Detail7Days city={currentCity} />
             </div>
           </>
         )

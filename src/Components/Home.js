@@ -279,30 +279,28 @@ class Home extends React.Component {
 
         return(
           <>
-            <div className="mainPage">
-              <div className={this.changePage()}>
+            <div className={this.changePage()}>
 
-                <HomePageBackground />
+              <HomePageBackground />
 
-                <div className="mainPage__webName">
-                  <h1>
-                    Find Your Weather.
-                  </h1>   
-                  <IoRainyOutline className="mainPage__webIcon" />
-                </div>
+              <div className="mainPage__webName">
+                <h1>
+                  Find Your Weather.
+                </h1>   
+                <IoRainyOutline className="mainPage__webIcon" />
+              </div>
 
-                <div className="mainPage__SearchBar">
-                  <div id='form'>
-                    <form onSubmit={this.handleSubmit}>
-                      <input
-                        onChange={this.handleOnChangeCity}
-                        className="mainPage__search"
-                        type="text"
-                        name="search"
-                        placeholder="enter your city"
-                      />
-                    </form>
-                  </div>
+              <div className="mainPage__SearchBar">
+                <div id='form'>
+                  <form onSubmit={this.handleSubmit}>
+                    <input
+                      onChange={this.handleOnChangeCity}
+                      className="mainPage__search"
+                      type="text"
+                      name="search"
+                      placeholder="enter your city"
+                    />
+                  </form>
                 </div>
               </div>
             </div>

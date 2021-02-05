@@ -1,5 +1,5 @@
 body {
-    background-color: antiquewhite;
+    /* background-color: antiquewhite; */
   }
   
   * {
@@ -8,8 +8,9 @@ body {
     padding: 0;
   }
   
+  /* 全部背景 */
   .NavbarItems {
-    background-color: aliceblue;
+    /* background-color: aliceblue; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,10 +22,14 @@ body {
     margin-left: 20px;
     cursor: pointer;
   }
-  
+  /* 左侧logo */
   .fa-rainbow {
     margin-left: 0.5em;
     font-size: 1.6rem;
+  }
+  /* 面包按钮 */
+  .fa-bars {
+    color: #6fa812;
   }
   
   .nav-menu {
@@ -38,95 +43,108 @@ body {
     justify-content: end;
   }
   
+  /* 每一个单独按钮的样式 */
   .nav-links {
-    color: #f38989;
+    color:#6fa812;
     text-decoration: none;
     padding: 5px 10px;
   }
-  
   .nav-links:hover {
-    background-color: aquamarine;
+    background-color: #6fa812;
     border-radius: 4px;
     transition: all 0.2s ease-out;
   }
   
-  .fa-bars {
-    color: #f38989;
-  }
   
+  /* mobile样式的sign up */
   .nav-links-mobile {
-    display: none;
+    /* display: none; */
   }
   
+  /* 面包按钮，缩小后才会display */
   .menu-icon {
     display: none;
   }
   
-  @media screen and (max-width: 960px) {
+
+  /* 小屏幕的--面包按钮 */
+  /* @media screen and (max-width: 960px) { */
+  @media screen and (min-width: 0px) {
+
     .NavbarItems {
       position: relative;
+      z-index: 999;
     }
+
+    /* 显示面包icon的位置 */
+    .menu-icon {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: translate(190%, 60%);
+      font-size: 1.8rem;
+      cursor: pointer;
+      z-index: 999;
+    }
+    .fa-times {
+      color: #6fa812;
+      font-size: 2rem;
+    }
+
+    /* 2.1点击叉叉按钮后，菜单详情都飘走 */
     .nav-menu {
       display: flex;
-      flex-direction: column;
-      width: 100%;
-      height: 500px;
+      flex-direction: row;
+      width: 100px;
+      /* height: 130px; */
       position: absolute;
-      top: 80px;
+      top: 0px;
       left: -100%;
       transition: all 0.5s ease;
     }
+    /* 2.2点击面包按钮后，菜单详情都浮动过来 */
     .nav-menu.active {
-      background-color: aliceblue;
-      left: 0;
+      /* background-color: aliceblue; */
+      /* opacity: 0.3; */
+      left: 100px;
       transition: all 0.5s ease;
       z-index: 1;
     }
     .nav-links {
       text-align: center;
-      padding: 2em;
+      padding: 1.4em;
       width: 100%;
       display: table;
     }
     .nav-links:hover {
-      background-color: firebrick;
+      background-color: #b2e462;
       border-radius: 0;
     }
-    .navbar-logo {
+    /* .navbar-logo {
       position: absolute;
       top: 0;
       left: 0;
       transform: translate(25%, 50%);
-    }
-    .menu-icon {
-      display: block;
-      position: absolute;
-      top: 0;
-      right: 0;
-      transform: translate(-100%, 60%);
-      font-size: 1.8rem;
-      cursor: pointer;
-    }
-    .fa-times {
-      color: #fff;
-      font-size: 2rem;
-    }
-    .nav-links-mobile {
+    } */
+    
+    /* 只在移动端显示的sign up按钮样式 */
+    /* .nav-links-mobile {
       display: block;
       text-align: center;
       padding: 1.5rem;
       margin: 2rem auto;
       border-radius: 4px;
       width: 80%;
-      background-color: indigo;
+      background-color:  firebrick;
       text-decoration: none;
       font-size: 1.5rem;
       color: white;
-    }
-    .nav-links-moble:hover {
+    } */
+    /* .nav-links-moble:hover {
       background-color: white;
       transition: 250ms;
-    }
+    } */
     Button {
       display: none;
     }

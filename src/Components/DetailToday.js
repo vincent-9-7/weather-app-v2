@@ -1,5 +1,5 @@
 import React from 'react';
-import { WiDegrees } from "react-icons/wi";
+// import { WiDegrees } from "react-icons/wi";
 
 
 const DetailToday = ({todayDetail,todayTime}) => (
@@ -9,8 +9,7 @@ const DetailToday = ({todayDetail,todayTime}) => (
 
       <div className='weatherPage__today weatherPage__today--tep'>
         <span id='today--tep' />
-        <WiDegrees className="degree" />
-
+        {/* <WiDegrees className="degree" /> */}
     
         <div className='weatherPage__today weatherPage__today--location'>
           <span id='weatherPage__today--detail'>{todayDetail}</span>

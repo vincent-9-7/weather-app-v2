@@ -1,8 +1,12 @@
 import React from 'react';
-import { WiDegrees } from "react-icons/wi";
+import axios from 'axios';
+import {getLocationApi,getWeatherApi} from '../api/Api'
+
 /* eslint-disable no-console */
 
+export const getLocation = (currentCity) => axios.get(getLocationApi(currentCity));
 
+export const getCurrentWeather = (lat,lng) => axios.get(getWeatherApi(lat,lng));
 
 class Detail7Days extends React.Component {
     constructor(props){
@@ -37,27 +41,21 @@ class Detail7Days extends React.Component {
     }
 
     async getWeather () {
-
         const{currentCity} = this.state;
-        // const currentCity = inputCity;
         // ------------------第1个api函数----------------
-        const apiUrl = `https://maps.googleapis.com/maps/api/geocode/`
-        +
-        `json?address=${currentCity}&key=AIzaSyCowgF-_iCq3G2JN4JaM-zj3fmD-7OQP30`
-        console.log(apiUrl);
-        const response = await fetch(apiUrl);
+        const mapBoxApiUrl = await (await getLocation(currentCity)).config.url;
+        // console.log(mapBoxApiUrl)
+        const response = await fetch(mapBoxApiUrl);
         const data = await response.json();
-        const {lng,lat} = data.results[0].geometry.location // 解构
-        // this.getDetail();// 回调函数，调用完getCoord再调用getDetail（）
+
+        const {center} = data.features[0]// 解构
+        const lat = center [1];
+        const lng = center [0];        
 
         // ------------------第二个api函数----------------
-        const apiUrlSecond = `https://api.openweathermap.org/data/2.5/`
-        +
-        `onecall?lat=${lat}&lon=${lng}&exclude=minutely,hourly,alerts`
-        +
-        `&appid=9bf729522efcbfd825ccfbef7c8f2410&units=metric`
-        console.log(apiUrlSecond)
-        const responseSecond = await fetch(apiUrlSecond);
+        const weatherApi = await (await getCurrentWeather(lat,lng)).config.url;
+        // console.log(weatherApi)
+        const responseSecond = await fetch(weatherApi);
         const dataSecond = await responseSecond.json();
  
         // 获取当天的温度 icon description 信息
@@ -106,13 +104,13 @@ class Detail7Days extends React.Component {
 
               <div className='weatherPage__item weatherPage__item--tep'>
                 <span id='second--high'>
-                  <WiDegrees />
+                  {/* <WiDegrees /> */}
                 </span>
               </div>
 
               <div className='weatherPage__item weatherPage__item--tep'>
                 <span id='second--low'>
-                  <WiDegrees />
+                  {/* <WiDegrees /> */}
                 </span>
               </div>
 
@@ -128,14 +126,14 @@ class Detail7Days extends React.Component {
               <div className='weatherPage__item weatherPage__item--tep'>
                 <span id='third--high'>
                    
-                  <WiDegrees />
+                  {/* <WiDegrees /> */}
                 </span>
               </div>
 
               <div className='weatherPage__item weatherPage__item--tep'>
                 <span id='third--low'>
                    
-                  <WiDegrees />
+                  {/* <WiDegrees /> */}
                 </span>
               </div>
 
@@ -150,13 +148,13 @@ class Detail7Days extends React.Component {
               
               <div className='weatherPage__item weatherPage__item--tep'>
                 <span id='forth--high'>
-                  <WiDegrees />
+                  {/* <WiDegrees /> */}
                 </span>
               </div>
 
               <div className='weatherPage__item weatherPage__item--tep'>
                 <span id='forth--low'>
-                  <WiDegrees />
+                  {/* <WiDegrees /> */}
                 </span>
               </div>
 
@@ -171,13 +169,13 @@ class Detail7Days extends React.Component {
 
               <div className='weatherPage__item weatherPage__item--tep'>
                 <span id='fifth--high'>
-                  <WiDegrees />
+                  {/* <WiDegrees /> */}
                 </span>
               </div>
 
               <div className='weatherPage__item weatherPage__item--tep'>
                 <span id='fifth--low'>
-                  <WiDegrees />
+                  {/* <WiDegrees /> */}
                 </span>
               </div>
 
@@ -192,13 +190,13 @@ class Detail7Days extends React.Component {
 
               <div className='weatherPage__item weatherPage__item--tep'>
                 <span id='sixth--high'>
-                  <WiDegrees />
+                  {/* <WiDegrees /> */}
                 </span>
               </div>
 
               <div className='weatherPage__item weatherPage__item--tep'>
                 <span id='sixth--low'>
-                  <WiDegrees />
+                  {/* <WiDegrees /> */}
                 </span>
               </div>
 
@@ -213,13 +211,13 @@ class Detail7Days extends React.Component {
 
               <div className='weatherPage__item weatherPage__item--tep'>
                 <span id='seventh--high'>
-                  <WiDegrees />
+                  {/* <WiDegrees /> */}
                 </span>
               </div>
 
               <div className='weatherPage__item weatherPage__item--tep'>
                 <span id='seventh--low'>
-                  <WiDegrees />
+                  {/* <WiDegrees /> */}
                 </span>
               </div>
             </div>

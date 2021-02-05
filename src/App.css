@@ -68,9 +68,9 @@ body {
   transition: transform 250ms ease-in-out;
   font-size: 21px;
   line-height: 18px;
-  color: #575756;
-  opacity: 0.4;
-  background-color: azure;
+  color: azure;
+  background-color: transparent;
+  background-color: #c1caca;
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-size: 18px 18px;
@@ -116,10 +116,26 @@ body {
 
 .weatherPage__search {
   position: absolute;
-  top: 20%;
+  top: 25%;
   z-index: 3;
   left: 56%;
   right: 0%;
+}
+
+.weatherPage__search:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  background-image: url(./img/sunny.jpg);
+  background-position: center top;
+  background-size: cover;
+  background-attachment: fixed;
+  filter: blur(18px);
+  -webkit-filter: blur(20px);
 }
 
 .weatherPage__search--input {
@@ -127,10 +143,9 @@ body {
   padding: 12px 24px;
   background-color: transparent;
   transition: transform 250ms ease-in-out;
-  font-size: 21px;
-  line-height: 18px;
-  color: #575756;
-  background-color: transparent;
+  font-size: 23px;
+  line-height: 15px;
+  color: white;
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-size: 18px 18px;
@@ -218,7 +233,7 @@ body {
   flex-wrap: wrap;
   z-index: 3;
   padding-top: 10px;
-  padding-bottom: 10px;
+  padding-bottom: 0px;
   line-height: 35px;
 }
 
@@ -243,7 +258,7 @@ body {
 
 .weatherPage__item {
   text-align: center;
-  color: black;
+  color: white;
   margin: 10px;
   padding: 5px;
   flex: 0 20%;
@@ -263,11 +278,37 @@ body {
   width: 70px;
 }
 
+.weatherPage__item--tep:after {
+  position: absolute;
+  left: 69%;
+  margin-top: -10px;
+  content: "\00b0";
+}
+
+.weatherPage__item--tep:before {
+  position: absolute;
+  left: 91%;
+  margin-top: -10px;
+  content: "\00b0";
+}
+
 #today--tep {
   font-size: 100px;
   color: white;
   margin: 5px;
   line-height: 140px;
+}
+
+#today--tep::before {
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  background-color: transparent;
+  left: 95%;
+  top: 17%;
+  border-radius: 50%;
+  content: "";
+  border: solid 3.5px white;
 }
 
 #weatherPage__today--detail {
@@ -297,6 +338,35 @@ body {
   position: absolute;
   left: 75%;
   top: 8%;
+}
+
+#loading {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: fixed;
+  display: block;
+  opacity: 1;
+  background-color: #fff;
+  z-index: 1998;
+  text-align: center;
+}
+
+#loading-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1999;
+}
+
+#loading-text {
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 30px;
 }
 
 @media only screen and (max-width: 1400px) {
@@ -362,23 +432,20 @@ body {
     -webkit-filter: blur(20px);
   }
   .weatherPage__today--tep {
-    top: 12%;
-    left: 25%;
+    top: 10%;
+    left: 35%;
     position: absolute;
   }
   .weatherPage__today--location {
     position: absolute;
     top: 0%;
-    left: 120%;
   }
   .weatherPage__today--icon {
     position: absolute;
-    left: 188%;
     width: 100px;
   }
   .weatherPage__today--main {
     position: absolute;
-    left: 188%;
   }
   .weatherPage__today--main span {
     font-size: 30px;
@@ -386,7 +453,7 @@ body {
   }
   .weatherPage__search {
     position: absolute;
-    top: 40%;
+    top: 30%;
     z-index: 3;
     left: 0%;
     right: 0%;
@@ -425,14 +492,14 @@ body {
   }
   .weatherPage__detail--day {
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 0%;
     right: 0%;
     display: flex;
     flex-wrap: wrap;
     z-index: 3;
     padding-top: 10px;
-    padding-bottom: 10px;
+    padding-bottom: 0px;
     line-height: 35px;
   }
   .weatherPage__detail--day:after {
@@ -470,6 +537,18 @@ body {
   }
   .weatherPage__item--tep {
     width: 70px;
+  }
+  .weatherPage__item--tep:after {
+    color: white;
+    position: absolute;
+    left: 69%;
+    content: "\00b0";
+  }
+  .weatherPage__item--tep:before {
+    color: white;
+    position: absolute;
+    left: 91%;
+    content: "\00b0";
   }
 }
 
@@ -536,23 +615,20 @@ body {
     -webkit-filter: blur(20px);
   }
   .weatherPage__today--tep {
-    top: 12%;
-    left: 5%;
+    top: 10%;
+    left: 23%;
     position: absolute;
   }
   .weatherPage__today--location {
     position: absolute;
     top: 0%;
-    left: 120%;
   }
   .weatherPage__today--icon {
     position: absolute;
-    left: 188%;
     width: 100px;
   }
   .weatherPage__today--main {
     position: absolute;
-    left: 188%;
   }
   .weatherPage__today--main span {
     font-size: 30px;
@@ -560,7 +636,7 @@ body {
   }
   .weatherPage__search {
     position: absolute;
-    top: 40%;
+    top: 30%;
     z-index: 3;
     left: 0%;
     right: 0%;
@@ -599,14 +675,14 @@ body {
   }
   .weatherPage__detail--day {
     position: absolute;
-    top: 50%;
+    top: 38%;
     left: 0%;
     right: 0%;
     display: flex;
     flex-wrap: wrap;
     z-index: 3;
     padding-top: 10px;
-    padding-bottom: 10px;
+    padding-bottom: 0px;
     line-height: 35px;
   }
   .weatherPage__detail--day:after {
@@ -644,5 +720,220 @@ body {
   }
   .weatherPage__item--tep {
     width: 70px;
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  /*尺寸小于375时*/
+  /* For phone: */
+  .col-s-1 {
+    width: 8.33%;
+  }
+  .col-s-2 {
+    width: 16.66%;
+  }
+  .col-s-3 {
+    width: 25%;
+  }
+  .col-s-4 {
+    width: 33.33%;
+  }
+  .col-s-5 {
+    width: 41.66%;
+  }
+  .col-s-6 {
+    width: 50%;
+  }
+  .col-s-7 {
+    width: 58.33%;
+  }
+  .col-s-8 {
+    width: 66.66%;
+  }
+  .col-s-9 {
+    width: 75%;
+  }
+  .col-s-10 {
+    width: 83.33%;
+  }
+  .col-s-11 {
+    width: 91.66%;
+  }
+  .col-s-12 {
+    width: 100%;
+  }
+  span {
+    color: white;
+  }
+  .weatherPage__today {
+    color: white;
+    z-index: 3;
+    padding: 5px;
+  }
+  .weatherPage__today:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    background-image: url(./img/sunny.jpg);
+    background-position: center top;
+    background-size: cover;
+    background-attachment: fixed;
+    filter: blur(18px);
+    -webkit-filter: blur(20px);
+  }
+  .weatherPage__today--tep {
+    top: 8%;
+    left: 40%;
+    position: absolute;
+  }
+  .weatherPage__today--location {
+    position: absolute;
+    left: -50%;
+  }
+  .weatherPage__today--icon {
+    position: absolute;
+    left: 15%;
+    top: 120%;
+    width: 80px;
+  }
+  .weatherPage__today--main {
+    position: absolute;
+    left: -80%;
+    top: 300%;
+  }
+  .weatherPage__today--main span {
+    font-size: 30px;
+    color: white;
+  }
+  .weatherPage__search {
+    position: absolute;
+    top: 55%;
+    z-index: 3;
+    left: 0%;
+    right: 0%;
+  }
+  .weatherPage__search--input {
+    width: 290px;
+    margin-left: 20px;
+    padding: 12px 24px;
+    background-color: transparent;
+    transition: transform 250ms ease-in-out;
+    font-size: 21px;
+    line-height: 18px;
+    color: #575756;
+    background-color: transparent;
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+    background-position: 95% center;
+    border-radius: 50px;
+    border: 1px solid #575756;
+    transition: all 250ms ease-in-out;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+  }
+  .weatherPage__search--input::placeholder {
+    color: color(#575756 a(0.8));
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+  .weatherPage__search--input:hover, .weatherPage__search--input:focus {
+    padding: 12px 0;
+    outline: 0;
+    border: 1px solid transparent;
+    border-bottom: 1px solid #575756;
+    border-radius: 0;
+    background-position: 100% center;
+  }
+  .weatherPage__detail--day {
+    display: none;
+  }
+  .weatherPage__item {
+    text-align: center;
+    color: black;
+    margin: 10px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    flex: 0 20%;
+  }
+  .weatherPage__item--day {
+    flex-grow: 1;
+  }
+  .weatherPage__item--icon {
+    width: 70px;
+    width: 40px;
+    height: 40px;
+  }
+  .weatherPage__item--tep {
+    width: 70px;
+  }
+  #today--tep {
+    font-size: 50px;
+    color: white;
+    margin: 5px;
+    line-height: 140px;
+  }
+  #weatherPage__today--detail {
+    font-size: 30px;
+    color: white;
+  }
+  #weatherPage__today--time {
+    display: none;
+  }
+  .weatherPage__item span {
+    font-size: 20px;
+    line-height: 35px;
+  }
+  .degree {
+    width: 60px;
+    height: 60px;
+    margin: 0px;
+    padding: 0px;
+    position: absolute;
+    left: 45%;
+    top: 20%;
+  }
+  .mainPage__search {
+    position: absolute;
+    z-index: 10;
+    left: 8.5%;
+    top: 55%;
+    width: 280px;
+    padding: 12px 24px;
+    transition: transform 250ms ease-in-out;
+    font-size: 21px;
+    line-height: 18px;
+    color: #575756;
+    opacity: 0.4;
+    background-color: azure;
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+    background-position: 95% center;
+    border-radius: 50px;
+    border: 0px;
+    transition: all 250ms ease-in-out;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+  }
+  .mainPage__search::placeholder {
+    color: color(#575756 a(0.8));
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+  .mainPage__search:hover, .mainPage__search:focus {
+    background-image: none;
+    background-color: transparent;
+    padding: 12px 0;
+    outline: 0;
+    border: 1px solid transparent;
+    border-bottom: 1px solid #575756;
+    border-radius: 0;
+    background-position: 100% center;
   }
 }

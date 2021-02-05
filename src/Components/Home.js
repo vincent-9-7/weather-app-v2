@@ -1,12 +1,35 @@
 import React from 'react';
 import { IoRainyOutline } from 'react-icons/io5';
+import axios from 'axios';
 import DetailToday from './DetailToday'
 import HomePageBackground from './HomeBackground';
+import Detail7Days from './Detail7Days'
+import {getLocationApi,getGMTApi,getWeatherApi,getTimeApi,getTimeApiGMT0} from '../api/Api'
+
 /* eslint-disable camelcase */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-console */
-import Detail7Days from './Detail7Days'
 
+//* ****************调用Api.js方法： *****************
+// 首先.env 里放全局变量/私密Key，命名以'REACT_APP_'开头
+// Api.js里面 a) const mapboxKey = process.env.REACT_APP_MAPBOX_KEY;
+//          b)export const getLocationApi = (currentCity) =>`https://api.mapbox....${currentCity}...${mapboxKey}`;
+// 要使用的地方：（Home.js）
+// 1）import axios 2）import{...} from '././Api' 
+// 3)export const getLocation = (currentCity) => axios.get(getLocationApi(currentCity));
+// 4) const mapBoxApiUrl = await (await getLocation(currentCity)).config.url;
+// 5)const response = await fetch(mapBoxApiUrl);
+// 6)const data = await response.json();
+// 7)正常解构 data
+
+export const getLocation = (currentCity) => axios.get(getLocationApi(currentCity));
+
+export const getCurrentWeather = (lat,lng) => axios.get(getWeatherApi(lat,lng));
+
+export const getGMT = (lat,lng) => axios.get(getGMTApi(lat,lng));
+
+export const getTimeapi = (GMT) => axios.get(getTimeApi(GMT));
+export const getGMT0Time = (GMT) => axios.get(getTimeApiGMT0(GMT));
 
 
 class Home extends React.Component {
@@ -45,7 +68,7 @@ class Home extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault()
 
-        // 先停止初始的setInterval,在进行新的计时
+        // (1)先停止初始的setInterval,在进行新的计时
         this.stopTime()
         
         const{changeCity} = this.state
@@ -54,14 +77,14 @@ class Home extends React.Component {
             currentCity:newCity,
         })
 
-        // 延迟1s消失主页，更新数据
+        // (2)延迟1s消失主页，更新数据
         setTimeout(() => {
             this.setState({
                 mainPageDisplay:false
             })
         },1000)
 
-        // 等更新完current city后 再执行两个更新函数，否则同时执行，currentCity还是旧的信息
+        // (3)等更新完current city后 再执行两个更新函数，否则同时执行，currentCity还是旧的信息
         setTimeout(() => {
             const{currentCity} = this.state
             this.updateTime(currentCity)
@@ -87,28 +110,27 @@ class Home extends React.Component {
         // document.getElementById('weatherPage__today--time').textContent = time;
 
         // 获取用户输入地址对应的时间：
-        const apiUrl1 = `https://maps.googleapis.com/maps/api/geocode/`
-            +
-            `json?address=${currentCity}&key=AIzaSyCowgF-_iCq3G2JN4JaM-zj3fmD-7OQP30`
-        const response = await fetch(apiUrl1);
+        const mapBoxApiUrl = await (await getLocation(currentCity)).config.url;
+        // console.log(mapBoxApiUrl)
+        const response = await fetch(mapBoxApiUrl);
         const data = await response.json();
-        const {geometry:{location:{lat,lng}}} = data.results[0] // 解构
-        console.log(apiUrl1)
+        const {center} = data.features[0]// 解构
+        const lat = center [1];
+        const lng = center [0];
 
-        const apiUrl2 = `https://api.openweathermap.org/data/2.5/`
-        +`weather?lat=${lat}&lon=${lng}&appid=9bf729522efcbfd825ccfbef7c8f2410`
-        console.log(apiUrl2)
-
-        const responseToday = await fetch(apiUrl2);
-        const dataToday = await responseToday.json();
-        const {timezone} = dataToday // 解构
+      
+        const gmtApiUrl = await (await getGMT(lat,lng)).config.url;
+        // console.log(weatherApiUrl)
+        const responseToday = await fetch(gmtApiUrl);
+        const currentGMT = await responseToday.json();
+        const {timezone} = currentGMT // 解构
         const GMT = timezone/3600
         
         // (UTC) is equal to the local time minus(-) the UTC offset.
         if(GMT===0) {
-        const apiUrl3 = `http://worldtimeapi.org/api/timezone/Etc/GMT`
-        console.log(apiUrl3)
-        const responseGMT = await fetch(apiUrl3);
+          const timeApi = await (await getGMT0Time(GMT)).config.url;
+        // console.log(timeApi)
+        const responseGMT = await fetch(timeApi);
         const dataGMT = await responseGMT.json();
         const {utc_datetime,utc_offset} = dataGMT // 解构
         const month = utc_datetime.toString().slice(5,7)
@@ -132,9 +154,8 @@ class Home extends React.Component {
         //   document.getElementById('weatherPage__today--time').textContent = `${getMonth}.${date2} ${hour}${minute}`;
 
         }if(GMT>0){
-        const apiUrl3 = `http://worldtimeapi.org/api/timezone/Etc/GMT+${GMT}`
-        console.log(apiUrl3)
-        const responseGMT = await fetch(apiUrl3);
+        const timeApi = await (await getTimeapi(`+${GMT}`)).config.url;
+        const responseGMT = await fetch(timeApi);
         const dataGMT = await responseGMT.json();
         const {utc_datetime,utc_offset} = dataGMT // 解构
         const month = utc_datetime.toString().slice(5,7)
@@ -156,9 +177,9 @@ class Home extends React.Component {
         })
         return information
         }
-        const apiUrl3 = `http://worldtimeapi.org/api/timezone/Etc/GMT${GMT}`
-        console.log(apiUrl3)
-        const responseGMT = await fetch(apiUrl3);
+        const timeApi = await (await getTimeapi(GMT)).config.url;
+        // console.log(timeApi)
+        const responseGMT = await fetch(timeApi);
         const dataGMT = await responseGMT.json();
         const {utc_datetime,utc_offset} = dataGMT // 解构
         const month = utc_datetime.toString().slice(5,7)
@@ -169,7 +190,6 @@ class Home extends React.Component {
         // console.log(hour,minute)
         const monthList = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
         const getMonth = monthList[month/1-1]
-        //   document.getElementById('weatherPage__today--time').textContent = `${getMonth}.${date2} ${hour}${minute}`;
         const information = [getMonth,date2,hour,minute]
         // console.log(information)
         this.setState({
@@ -184,22 +204,18 @@ class Home extends React.Component {
     // 得到输入地点的实时天气
     async getWeather (currentCity) {
         // ------------------第1个api函数----------------
-        const apiUrl = `https://maps.googleapis.com/maps/api/geocode/`
-        +
-        `json?address=${currentCity}&key=AIzaSyCowgF-_iCq3G2JN4JaM-zj3fmD-7OQP30`
-        console.log(apiUrl);
-        const response = await fetch(apiUrl);
+        const mapBoxApiUrl = await (await getLocation(currentCity)).config.url;
+        // console.log(mapBoxApiUrl)
+        const response = await fetch(mapBoxApiUrl);
         const data = await response.json();
-        const {geometry:{location:{lat,lng}}} = data.results[0] // 解构
+        const {center} = data.features[0]// 解构
+        const lat = center [1];
+        const lng = center [0];
 
         // ------------------第二个api函数----------------
-        const apiUrlSecond = `https://api.openweathermap.org/data/2.5/`
-        +
-        `onecall?lat=${lat}&lon=${lng}&exclude=minutely,hourly,alerts`
-        +
-        `&appid=9bf729522efcbfd825ccfbef7c8f2410&units=metric`
-        console.log(apiUrlSecond)
-        const responseSecond = await fetch(apiUrlSecond);
+        const weatherApi = await (await getCurrentWeather(lat,lng)).config.url;
+        // console.log(weatherApi)
+        const responseSecond = await fetch(weatherApi);
         const dataSecond = await responseSecond.json();
  
         // 获取当天的温度 icon description 信息
@@ -208,7 +224,7 @@ class Home extends React.Component {
         const todayTemp = temp.toString().split(".")[0];
 
         document.getElementById('today--tep').textContent = todayTemp;
-        document.getElementById('today--icon').src = `http://openweathermap.org/img/wn/${todayIcon}@2x.png`;
+        document.getElementById('today--icon').src = `https://openweathermap.org/img/wn/${todayIcon}@2x.png`;
         document.getElementById('today--main').textContent = main;
         document.getElementById('weatherPage__today--detail').textContent = currentCity;
         
@@ -223,18 +239,19 @@ class Home extends React.Component {
             const idHigh = `${order[i]}--high`;
             const idLow = `${order[i]}--low`;
             const idIcon = `${order[i]}--icon`;
-            document.getElementById(`${idIcon}`).src = `http://openweathermap.org/img/wn/${icon}@2x.png`;
+            document.getElementById(`${idIcon}`).src = `https://openweathermap.org/img/wn/${icon}@2x.png`;
             document.getElementById(`${idHigh}`).textContent = highTemp;
             document.getElementById(`${idLow}`).textContent = lowTemp;
         }
     }
 
+    // 停止自动更新
     stopTime = () => clearInterval(this.timer)
 
     // 更改页面display：none
     changePage = () => {
         const{mainPageDisplay} = this.state
-        console.log(mainPageDisplay)
+        // console.log(mainPageDisplay)
         if(!mainPageDisplay){
             return "mainPage__display-none"
         }
@@ -301,7 +318,6 @@ class Home extends React.Component {
                         onChange={this.handleOnChangeCity}
                         className="weatherPage__search--input" 
                         type="text" 
-                        onClick={this.cc}
                         placeholder="Search"
                       />
                     </form>
@@ -314,7 +330,6 @@ class Home extends React.Component {
                 />
             
                 <Detail7Days city={currentCity} />
-
               </div>
             </div>
           </>

@@ -40,53 +40,42 @@ class Detail7Days extends React.Component {
         }
     }
 
-    async getWeather () {
-        const{currentCity} = this.state;
-        // ------------------第1个api函数----------------
-        const mapBoxApiUrl = await (await getLocation(currentCity)).config.url;
-        // console.log(mapBoxApiUrl)
-        const response = await fetch(mapBoxApiUrl);
-        const data = await response.json();
+    getWeather = async () => {
+      const{currentCity} = this.state
+      // ------------------第1个api函数----------------
+      const mapBoxresponse = await (getLocation(currentCity))
+      const {center} = mapBoxresponse.data.features[0]// 解构
+      const lat = center [1];
+      const lng = center [0];
 
-        const {center} = data.features[0]// 解构
-        const lat = center [1];
-        const lng = center [0];        
+      // ------------------第二个api函数----------------
+      const weatherResponse = await (getCurrentWeather(lat,lng))
+      // 获取当天的温度 icon description 信息
+      const {current:{temp}} = weatherResponse.data;
+      const {icon:todayIcon, main} = weatherResponse.data.current.weather[0];
+      const todayTemp = temp.toString().split(".")[0];
 
-        // ------------------第二个api函数----------------
-        const weatherApi = await (await getCurrentWeather(lat,lng)).config.url;
-        // console.log(weatherApi)
-        const responseSecond = await fetch(weatherApi);
-        const dataSecond = await responseSecond.json();
- 
-        // 获取当天的温度 icon description 信息
-        const {temp} = dataSecond.current;
-        const {icon:todayIcon, main} = dataSecond.current.weather[0];
-        const todayTemp = temp.toString().split(".")[0];
+      document.getElementById('today--tep').textContent = todayTemp;
+      document.getElementById('today--icon').src = `https://openweathermap.org/img/wn/${todayIcon}@2x.png`;
+      document.getElementById('today--main').textContent = main;
+      document.getElementById('weatherPage__today--detail').textContent = currentCity;
+      
+    // 未来6天天气写入
+      for(let i=0; i<6; i+=1) {
+          const {max,min} = weatherResponse.data.daily[i+1].temp;
+          const {icon} = weatherResponse.data.daily[i+1].weather[0];
+          const highTemp = max.toString().split(".")[0];
+          const lowTemp = min.toString().split(".")[0];
+          const order = ['second','third','forth','fifth','sixth','seventh']
 
-        
-        document.getElementById('today--tep').textContent = todayTemp;
-        document.getElementById('today--icon').src = `http://openweathermap.org/img/wn/${todayIcon}@2x.png`;
-        document.getElementById('today--main').textContent = main;
-
-        document.getElementById('weatherPage__today--detail').textContent = currentCity;
-        
-      // 未来6天天气写入
-        for(let i=0; i<6; i+=1) {
-            const {max,min} = dataSecond.daily[i+1].temp;
-            const {icon} = dataSecond.daily[i+1].weather[0];
-
-            const highTemp = max.toString().split(".")[0];
-            const lowTemp = min.toString().split(".")[0];
-            const order = ['second','third','forth','fifth','sixth','seventh']
-    
-            const idHigh = `${order[i]}--high`;
-            const idLow = `${order[i]}--low`;
-            const idIcon = `${order[i]}--icon`;
-            document.getElementById(`${idIcon}`).src = `http://openweathermap.org/img/wn/${icon}@2x.png`;
-            document.getElementById(`${idHigh}`).textContent = highTemp;
-            document.getElementById(`${idLow}`).textContent = lowTemp;
-        }
-    }
+          const idHigh = `${order[i]}--high`;
+          const idLow = `${order[i]}--low`;
+          const idIcon = `${order[i]}--icon`;
+          document.getElementById(`${idIcon}`).src = `https://openweathermap.org/img/wn/${icon}@2x.png`;
+          document.getElementById(`${idHigh}`).textContent = highTemp;
+          document.getElementById(`${idLow}`).textContent = lowTemp;
+      }
+  }
    
     render(){
         return(

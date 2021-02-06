@@ -9,8 +9,11 @@ import {getLocationApi,getGMTApi,getWeatherApi,getTimeApi,getTimeApiGMT0} from '
 /* eslint-disable camelcase */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-console */
+// 使用try catch的报错：
+/* eslint-disable no-unused-expressions */ 
 
 //* ****************调用Api.js方法： *****************
+//* ********配置完.env 添加完key之后 记得重新 npm start，否则找不到KEY！！
 // 首先.env 里放全局变量/私密Key，命名以'REACT_APP_'开头
 // Api.js里面 a) const mapboxKey = process.env.REACT_APP_MAPBOX_KEY;
 //          b)export const getLocationApi = (currentCity) =>`https://api.mapbox....${currentCity}...${mapboxKey}`;
@@ -103,95 +106,72 @@ class Home extends React.Component {
     }
 
     // 得到输入地点的实时时间
-    async getTime(currentCity) {
+    getTime = async (currentCity) => {
 
         // 获取本机当地时间：
         // const time = `${new Date().toString().slice(4,10)} ${new Date().toString().slice(16,24)}`
         // document.getElementById('weatherPage__today--time').textContent = time;
 
         // 获取用户输入地址对应的时间：
-        const mapBoxApiUrl = await (await getLocation(currentCity)).config.url;
-        // console.log(mapBoxApiUrl)
-        const response = await fetch(mapBoxApiUrl);
-        const data = await response.json();
-        const {center} = data.features[0]// 解构
+        const mapBoxresponse = await (getLocation(currentCity))
+        const {center} = mapBoxresponse.data.features[0]// 解构
         const lat = center [1];
         const lng = center [0];
 
-      
-        const gmtApiUrl = await (await getGMT(lat,lng)).config.url;
-        // console.log(weatherApiUrl)
-        const responseToday = await fetch(gmtApiUrl);
-        const currentGMT = await responseToday.json();
-        const {timezone} = currentGMT // 解构
+        const gmtResponse = await (getGMT(lat,lng))
+        const {timezone} = gmtResponse.data // 解构
         const GMT = timezone/3600
         
         // (UTC) is equal to the local time minus(-) the UTC offset.
         if(GMT===0) {
-          const timeApi = await (await getGMT0Time(GMT)).config.url;
-        // console.log(timeApi)
-        const responseGMT = await fetch(timeApi);
-        const dataGMT = await responseGMT.json();
-        const {utc_datetime,utc_offset} = dataGMT // 解构
-        const month = utc_datetime.toString().slice(5,7)
-        const date2 = utc_datetime.toString().slice(8,10)
-        let hour = Number(utc_datetime.toString().slice(11,13))
-        const minute = utc_datetime.toString().slice(13,19)
-        hour -= Number(utc_offset.toString().slice(0,3))
-        // console.log(hour,minute)
-        const monthList = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
-        const getMonth = monthList[month/1-1]
-        const information = [getMonth,date2,hour,minute]
-        // console.log(information)
-        
-        this.setState({
-            todayMonth:getMonth,
-            todayDate:date2,
-            todayHour:hour,
-            todayMinute:minute
-        })
-        return information            
-        //   document.getElementById('weatherPage__today--time').textContent = `${getMonth}.${date2} ${hour}${minute}`;
-
+          const timeResponse = await (getGMT0Time(GMT))
+          const {utc_datetime,utc_offset} = timeResponse.data // 解构
+          const month = utc_datetime.toString().slice(5,7)
+          const date2 = utc_datetime.toString().slice(8,10)
+          let hour = Number(utc_datetime.toString().slice(11,13))
+          const minute = utc_datetime.toString().slice(13,19)
+          hour -= Number(utc_offset.toString().slice(0,3))
+          const monthList = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+          const getMonth = monthList[month/1-1]
+          const information = [getMonth,date2,hour,minute]
+          
+          this.setState({
+              todayMonth:getMonth,
+              todayDate:date2,
+              todayHour:hour,
+              todayMinute:minute
+          })
+          return information            
         }if(GMT>0){
-        const timeApi = await (await getTimeapi(`+${GMT}`)).config.url;
-        const responseGMT = await fetch(timeApi);
-        const dataGMT = await responseGMT.json();
-        const {utc_datetime,utc_offset} = dataGMT // 解构
-        const month = utc_datetime.toString().slice(5,7)
-        const date2 = utc_datetime.toString().slice(8,10)
-        let hour = Number(utc_datetime.toString().slice(11,13))
-        const minute = utc_datetime.toString().slice(13,19)
-        hour -= Number(utc_offset.toString().slice(0,3))
-        // console.log(hour,minute)
-        const monthList = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
-        const getMonth = monthList[month/1-1]
-        //   document.getElementById('weatherPage__today--time').textContent = `${getMonth}.${date2} ${hour}${minute}`;
-        const information = [getMonth,date2,hour,minute]
-        // console.log(information)
-        this.setState({
-            todayMonth:getMonth,
-            todayDate:date2,
-            todayHour:hour,
-            todayMinute:minute
-        })
-        return information
+          const timeResponse = await (getTimeapi(`+${GMT}`))
+          const {utc_datetime,utc_offset} = timeResponse.data // 解构
+          const month = utc_datetime.toString().slice(5,7)
+          const date2 = utc_datetime.toString().slice(8,10)
+          let hour = Number(utc_datetime.toString().slice(11,13))
+          const minute = utc_datetime.toString().slice(13,19)
+          hour -= Number(utc_offset.toString().slice(0,3))
+          const monthList = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+          const getMonth = monthList[month/1-1]
+          const information = [getMonth,date2,hour,minute]
+          // console.log(information)
+          this.setState({
+              todayMonth:getMonth,
+              todayDate:date2,
+              todayHour:hour,
+              todayMinute:minute
+          })
+          return information
         }
-        const timeApi = await (await getTimeapi(GMT)).config.url;
-        // console.log(timeApi)
-        const responseGMT = await fetch(timeApi);
-        const dataGMT = await responseGMT.json();
-        const {utc_datetime,utc_offset} = dataGMT // 解构
+        const timeResponse = await (getTimeapi(GMT))
+        const {utc_datetime,utc_offset} = timeResponse.data // 解构
         const month = utc_datetime.toString().slice(5,7)
         const date2 = utc_datetime.toString().slice(8,10)
         let hour = Number(utc_datetime.toString().slice(11,13))
         const minute = utc_datetime.toString().slice(13,19)
         hour -= Number(utc_offset.toString().slice(0,3))
-        // console.log(hour,minute)
         const monthList = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
         const getMonth = monthList[month/1-1]
         const information = [getMonth,date2,hour,minute]
-        // console.log(information)
         this.setState({
             todayMonth:getMonth,
             todayDate:date2,
@@ -202,25 +182,18 @@ class Home extends React.Component {
     }
 
     // 得到输入地点的实时天气
-    async getWeather (currentCity) {
+    getWeather = async (currentCity) => {
         // ------------------第1个api函数----------------
-        const mapBoxApiUrl = await (await getLocation(currentCity)).config.url;
-        // console.log(mapBoxApiUrl)
-        const response = await fetch(mapBoxApiUrl);
-        const data = await response.json();
-        const {center} = data.features[0]// 解构
+        const mapBoxresponse = await (getLocation(currentCity))
+        const {center} = mapBoxresponse.data.features[0]// 解构
         const lat = center [1];
         const lng = center [0];
 
         // ------------------第二个api函数----------------
-        const weatherApi = await (await getCurrentWeather(lat,lng)).config.url;
-        // console.log(weatherApi)
-        const responseSecond = await fetch(weatherApi);
-        const dataSecond = await responseSecond.json();
- 
+        const weatherResponse = await (getCurrentWeather(lat,lng))
         // 获取当天的温度 icon description 信息
-        const {temp} = dataSecond.current;
-        const {icon:todayIcon, main} = dataSecond.current.weather[0];
+        const {current:{temp}} = weatherResponse.data;
+        const {icon:todayIcon, main} = weatherResponse.data.current.weather[0];
         const todayTemp = temp.toString().split(".")[0];
 
         document.getElementById('today--tep').textContent = todayTemp;
@@ -230,8 +203,8 @@ class Home extends React.Component {
         
       // 未来6天天气写入
         for(let i=0; i<6; i+=1) {
-            const {max,min} = dataSecond.daily[i+1].temp;
-            const {icon} = dataSecond.daily[i+1].weather[0];
+            const {max,min} = weatherResponse.data.daily[i+1].temp;
+            const {icon} = weatherResponse.data.daily[i+1].weather[0];
             const highTemp = max.toString().split(".")[0];
             const lowTemp = min.toString().split(".")[0];
             const order = ['second','third','forth','fifth','sixth','seventh']

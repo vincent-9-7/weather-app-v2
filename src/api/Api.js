@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const mapboxKey = process.env.REACT_APP_MAPBOX_KEY;
 const weatherKey = process.env.REACT_APP_WEATHER_KEY;
 const googleKey = process.env.REACT_APP_GOOGLE_KEY;
